@@ -10,5 +10,7 @@ int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
         
     }
   
+    list_add(&hp_kthread->list, &hp_kthread_list);  // 添加到全局链表 hp_kthread_list 上
+    
     mutex_unlock(&cpuboot_hp_kthread_lock);
 }
