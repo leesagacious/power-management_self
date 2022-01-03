@@ -14,4 +14,10 @@ struct cpu_hotplug_state {
     */
     unsigned int cur_state;                 // 当前cpu 热插拔状态
     unsigned int tar_state;                 // 目标cpu 热插拔状态
+    
+   /*
+    * cpu_hotplug_state 持有 cpu 热插拔线程.
+    * 这样的用意是可以根据 state 来唤醒该线程做一些callback操作.
+    */
+    struct task_struct *cpu_hp_kthread;     // 指向cpu 热插拔线程 
 };
