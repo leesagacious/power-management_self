@@ -1,5 +1,11 @@
 #include cpuboot.h
 
+/*
+ * 在Linux kernel中, 存储cpu 热插拔状态机使用的是一个数组 cpuhp_ho_states[].
+ * 这里使用链表来代替它, 虽然性能上较为数组有所下降.
+ */
+static LIST_HEAD(cpu_hotplug_order);  // cpu热插拔步骤链表
+
 int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
 {
     unsigned int cpu;
