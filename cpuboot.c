@@ -6,6 +6,21 @@
  */
 static LIST_HEAD(cpu_hotplug_order);  // cpu热插拔步骤链表
 
+/*
+ * cpu 热插拔线程实现.
+ */
+static int cpu_hp_thread_fn(void *data)
+{
+    for (;;) {
+        
+        if (kthread_should_stop()) {
+            
+            return 0;
+        }
+    }
+        
+}
+
 int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
 {
     unsigned int cpu;
