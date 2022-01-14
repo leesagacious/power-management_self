@@ -36,6 +36,11 @@ int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
                         cpu, hp_kthread->kthread_name);
         if (IS_ERR(cpu_kthread))
             return PTR_ERR(cpu_kthread);
+        
+       /*
+        * 初始化用于唤醒 cpu 热插拔线程的完成量.
+        */
+        init_completion(&hp->bringup_comp);
     }
   
     list_add(&hp_kthread->list, &hp_kthread_list);  // 添加到全局链表 hp_kthread_list 上
