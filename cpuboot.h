@@ -16,6 +16,13 @@ struct cpu_hotplug_state {
     */
     unsigned int cur_state;                 // 当前cpu 热插拔状态
     unsigned int tar_state;                 // 目标cpu 热插拔状态
+    
+   /*
+    *  这个变量用于来判断在cpu 状态从 offline 到 online的过程中,
+    *  是否需要 启用 AP 线程来进行操作
+    *  这里不使用原生的 bool should_run 来进行判断.
+    */
+    unsigned int run_ap_thread;
    /*
     * cpu 从 offline 状态迁移到 online 状态时 唤醒 cpu 热插拔线程用的完成量.
     */
@@ -26,3 +33,4 @@ struct cpu_hotplug_state {
     */
     struct task_struct *cpu_hp_kthread;     // 指向cpu 热插拔线程 
 };
+
