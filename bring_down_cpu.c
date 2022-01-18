@@ -18,3 +18,15 @@ static int bring_cpu(unsigned int cpu, unsigned int
   
     return ret;
 }
+
+/*
+ *  唤醒内核线程来处理cpu的状态迁移.
+ */
+static void wake_up_ap_thread(struct cpu_hotplug_state  *chs)
+{
+   /*
+    *  唤醒在系统启动时已经创建好的内核线程.
+    *  当cpu热插拔状态处于该线程管理的范围内的话.
+    */        
+    wake_up_process(chs->cpu_hp_kthread);
+}
