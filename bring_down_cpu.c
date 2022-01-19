@@ -1,3 +1,4 @@
+#include "cpuboot.h"
 /*
  *    #func . 把 cpu id 为 cpu的状态 唤醒到热插拔 target_state 状态.
  *    @cpu . 要操作的cpu id
@@ -29,4 +30,9 @@ static void wake_up_ap_thread(struct cpu_hotplug_state  *chs)
     *  当cpu热插拔状态处于该线程管理的范围内的话.
     */        
     wake_up_process(chs->cpu_hp_kthread);
+   
+   /*
+    *  等待该内核线程执行完各个状态的callback.
+    */        
+    wait_for_completion(chs->bringup_comp);
 }
