@@ -34,3 +34,18 @@ struct cpu_hotplug_state {
     struct task_struct *cpu_hp_kthread;     // 指向cpu 热插拔线程 
 };
 
+/*
+ * 状态跃迁/回落的状态机步骤
+ */
+struct cpu_machine_step {
+    const char *name;
+   /*
+    *   状态跃迁时回调callback     
+    */
+    int (*bringup)(unsigned int cpu);
+   /*
+    *   状态回落时回调callback
+    */
+    int (*teardown)(unsigned int cpu);
+};
+
