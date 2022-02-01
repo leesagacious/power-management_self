@@ -24,7 +24,14 @@ static int cpu_hp_thread_fn(void *data)
 int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
 {
     unsigned int cpu;
+    unsigned int curr_cpu;
     struct task_struct *cpu_kthread;
+    
+   /*
+    * 获取当前执行的cpu id.
+    * 该函数封装了smp_processor_id(). 只是在执行之前关闭了抢占.
+    */
+    curr_cpu = get_cpu();
   
     mutex_lock(&cpuboot_hp_kthread_lock);
     
@@ -41,6 +48,13 @@ int cpuboot_generate_percpu_kthread(struct cpu_hotplug_kthread *hp_kthread)
         * 初始化用于唤醒 cpu 热插拔线程的完成量.
         */
         init_completion(&hp->bringup_comp);
+        
+       /*
+        * 这里为AP创建idle线程. 排除BP
+        */
+        if (cpu != curr_cpu) {
+        
+        }
     }
   
     list_add(&hp_kthread->list, &hp_kthread_list);  // 添加到全局链表 hp_kthread_list 上
