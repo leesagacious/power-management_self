@@ -1,3 +1,4 @@
+#include <linux/smp.h>
 #include cpuboot.h
 
 /*
