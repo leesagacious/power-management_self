@@ -2,6 +2,10 @@
 #include cpuboot.h
 
 /*
+ * 定义静态的 per_cpu 变量. 每个cpu都保持有该变量的一个副本
+ */
+static DEFINE_PER_CPU(struct task_struct *, free_threads);
+/*
  * 在Linux kernel中, 存储cpu 热插拔状态机使用的是一个数组 cpuhp_ho_states[].
  * 这里使用链表来代替它, 虽然性能上较为数组有所下降.
  */
