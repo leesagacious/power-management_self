@@ -15,8 +15,8 @@ struct cpu_hotplug_state {
     * 这里不使用枚举来表示cpu 热插拔的状态.
     * 每一位表示一种状态. 扩展状态的范围
     */
-    unsigned long long cur_state;                 // 当前cpu 热插拔状态
-    unsigned long long tar_state;                 // 目标cpu 热插拔状态
+    DECLARE_BITMAP(curr_cpuhp_state, 218);      // 当前cpu 热插拔状态
+    DECLARE_BITMAP(target_cpuhp_state, 218);    // 目标cpu 热插拔状态
     
    /*
     *  这个变量用于来判断在cpu 状态从 offline 到 online的过程中,
